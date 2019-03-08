@@ -7,13 +7,12 @@ defmodule HTP do
   if it comes from the database, an external API or others.
   """
 
+  @barts_line "I will not throw away my HTTP connections today!\n"
+  @barts_line_length String.length(@barts_line)
   def chars(size) do
-    :crypto.strong_rand_bytes(size)
-    |> Base.encode64()
-    |> :erlang.binary_to_list()
-    |> Enum.chunk_every(80)
-    |> Enum.intersperse(?\n)
-    |> :erlang.iolist_to_binary()
-    |> :binary.part(0, size)
+    line_count = div(size, @barts_line_length) + 1
+    1..line_count
+    |> Enum.map(fn _ -> @barts_line end)
   end
 end
+
