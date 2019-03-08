@@ -1,11 +1,13 @@
 defmodule HTPWeb.Router do
   use HTPWeb, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :browser do
+    plug :accepts, ["html"]
   end
 
-  scope "/api", HTPWeb do
-    pipe_through :api
+  scope "/", HTPWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
   end
 end
