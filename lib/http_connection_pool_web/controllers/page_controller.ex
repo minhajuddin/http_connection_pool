@@ -5,6 +5,8 @@ defmodule HTPWeb.PageController do
   # /?size=100kb
   # /?size=1000kb
   def index(conn, params) do
+    :ets.insert(:pids, {params["rid"], self()})
+
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, body_for(params["size"]))

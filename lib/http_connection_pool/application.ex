@@ -14,6 +14,11 @@ defmodule HTP.Application do
       # {HTP.Worker, arg},
     ]
 
+    spawn fn ->
+      :pids = :ets.new :pids, [:named_table, :public]
+      :timer.sleep :infinity
+    end
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: HTP.Supervisor]
